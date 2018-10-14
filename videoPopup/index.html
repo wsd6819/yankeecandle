@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <style>
+    *{margin: 0; padding: 0;}
+    .center{position: relative; width: 960px; margin: auto;}
+    h3{text-align: center;padding: 50px 0;}
+    .video-banner{position: relative; border:1px solid #000; width: 300px; margin: auto;}
+    .video-banner img{width: 100%; vertical-align: top;}
+
+    .countDown{position: absolute; top:0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.2); opacity: 0; transition: 0.5s;}
+    .start{opacity: 1;}
+    .countDown .center{position: absolute; top:50%; left:50%; transform: translate(-50%, -50%); width: 100px; height: 100px;}
+    .svg-donut {position: absolute; width: 100px; height: 100px; transform:rotate(-90deg); z-index: -1;background: rgba(0, 0, 0, 0.3); border-radius: 50%; border: 2px solid #fff;}
+    .start .donut {animation: donut 3s; stroke-width:10; }
+    @keyframes donut {
+      0% { stroke-dasharray: 0, 900; }
+      100% { stroke-dasharray: 300; }
+    }
+    .countDown .number{color:#ffd601; font-size: 3em;display: block; text-align: center; line-height:100px;}
+
+    #video-popup{position: absolute; top:0; width: 100%; display: none;}
+    #video-popup video{width: 100%;}
+    #video-popup button{position: absolute; z-index: 1; right:10px; top:10px; background: none;
+      font-size: 3em; color:#fff; border:0; outline: none; cursor: pointer; text-shadow: 0 0 5px black;}
+
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script>
+    $(function(){
+      video=$('video')[0];
+
+      $('.video-banner').on({
+        mouseenter:function(){
+          $('.countDown').addClass('start');
+          var i=3;
+          $('.number').text('3');
+          play=setInterval(function(){
+            $('.number').text(--i);
+            if(i==1){
+              clearInterval(play);
+              $('#video-popup').slideDown(1000,function(){
+                video.muted=true;
+                video.play();
+              });
+            }
+          },1000);
+        },
+        mouseleave:function(){
+          $('.countDown').removeClass('start');
+          clearInterval(play);
+        }
+      })
+
+      $('#video-popup button').click(function(){
+        $('#video-popup').slideUp(500,function(){
+          video.currentTime=0;
+          video.pause();
+        });
+      })
+    })
+  </script>
+</head>
+<body>
+  <div class="center">
+    <h3>아래 영역에 마우스를 올려 영상을 확인하세요.<br>
+      3초뒤 영상이 실행됩니다.</h3>
+    <div class="video-banner">
+      <img src="starbucks-reserve-logo.jpg" alt="starbucks-reserve">
+      <div class="countDown">
+        <div class="center">
+          <svg class="svg-donut">
+  			    <g stroke-width="0" fill="none">
+  			        <circle class="donut" stroke-dasharray="0" stroke="#ffd601" stroke-linecap="round" cx="50" cy="50" r="45"></circle>
+  			    </g>
+          </svg>
+          <span class="number">3</span>
+        </div>
+      </div>
+    </div>
+    <div id="video-popup">
+      <button class="fa fa-times"></button>
+      <video src="starbucks-reserve.mp4" controls></video>
+    </div>
+  </div>
+</body>
+</html>
