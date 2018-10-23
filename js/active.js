@@ -153,7 +153,6 @@
     }
     //video
     video=$('video')[0];
-
     $('.video-banner').on({
       mouseenter:function(){
         $('.countDown').addClass('start');
@@ -182,4 +181,4 @@
         video.pause();
       });
     })
-})(jQuery);
+})(jQuery)
