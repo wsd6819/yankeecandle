@@ -231,14 +231,14 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
 }(jQuery));
 
 // :: Search Area
-var search = document.getElementById('search'),
-    searchWrapper = document.getElementById('search-wrapper'),
-    closeIcon = document.getElementById('close-icon');
-    search.onfocus = function () {
-    searchWrapper.classList.add('search-expanded');
-    this.addEventListener('transitionend', function () {
-        closeIcon.style.display = 'block';
-    });
+// var search = document.getElementById('search'),
+//     searchWrapper = document.getElementById('search-wrapper'),
+//     closeIcon = document.getElementById('close-icon');
+//     search.onfocus = function () {
+//     searchWrapper.classList.add('search-expanded');
+//     this.addEventListener('transitionend', function () {
+//         closeIcon.style.display = 'block';
+//     });
 }
 search.onblur = function () {
     searchWrapper.classList.remove('search-expanded');
